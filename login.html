@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustMatrix — Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0a0c12;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .page {
+      background: #0f1117;
+      width: 100%;
+      max-width: 1100px;
+      min-height: 600px;
+      padding: 36px 40px;
+      border-radius: 20px;
+      border: 0.5px solid #1e2130;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 44px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: #ff6b35;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon i { font-size: 20px; color: #fff; }
+
+    .logo-text {
+      font-size: 19px;
+      font-weight: 600;
+      color: #f5f0e8;
+      letter-spacing: 0.4px;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      color: #9e9b94;
+      margin-top: 2px;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+    }
+
+    .nav-pill {
+      background: #1c1f2a;
+      border: 0.5px solid #2e3140;
+      border-radius: 20px;
+      padding: 7px 18px;
+      font-size: 13px;
+      color: #9e9b94;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-pill i { font-size: 15px; }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .headline {
+      font-size: 30px;
+      font-weight: 600;
+      color: #f5f0e8;
+      line-height: 1.3;
+    }
+
+    .headline span { color: #ff6b35; }
+
+    .sub {
+      font-size: 14px;
+      color: #9e9b94;
+      line-height: 1.7;
+      margin-top: 8px;
+    }
+
+    .pulse-bar {
+      background: #1c1f2a;
+      border: 0.5px solid #2e3140;
+      border-radius: 13px;
+      padding: 18px 22px;
+    }
+
+    .pulse-label {
+      font-size: 11px;
+      color: #9e9b94;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      margin-bottom: 12px;
+    }
+
+    .pulse-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ff6b35;
+      flex-shrink: 0;
+      animation: blink 1.6s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .pulse-status {
+      font-size: 15px;
+      font-weight: 500;
+      color: #f5f0e8;
+    }
+
+    .pulse-badge {
+      font-size: 11px;
+      background: rgba(255, 107, 53, 0.15);
+      color: #ff6b35;
+      border-radius: 20px;
+      padding: 3px 11px;
+      border: 0.5px solid rgba(255, 107, 53, 0.3);
+    }
+
+    .pulse-svg {
+      width: 100%;
+      height: 42px;
+      margin-top: 14px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .metric {
+      background: #1c1f2a;
+      border: 0.5px solid #2e3140;
+      border-radius: 11px;
+      padding: 16px 14px;
+    }
+
+    .metric i {
+      font-size: 19px;
+      color: #ff6b35;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: #9e9b94;
+      margin-bottom: 5px;
+    }
+
+    .metric-val {
+      font-size: 23px;
+      font-weight: 600;
+      color: #f5f0e8;
+    }
+
+    .metric-bar {
+      height: 3px;
+      border-radius: 2px;
+      background: #2e3140;
+      margin-top: 12px;
+    }
+
+    .metric-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: #ff6b35;
+    }
+
+    .quote-strip {
+      border-left: 2.5px solid #ff6b35;
+      padding-left: 16px;
+    }
+
+    .quote-text {
+      font-size: 13px;
+      color: #9e9b94;
+      line-height: 1.7;
+    }
+
+    .quote-text em {
+      color: #ff6b35;
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .login-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 13px;
+      background: rgba(255, 107, 53, 0.12);
+      border: 0.5px solid rgba(255, 107, 53, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2px;
+    }
+
+    .login-icon i { font-size: 23px; color: #ff6b35; }
+
+    .login-title {
+      text-align: center;
+      font-size: 19px;
+      font-weight: 600;
+      color: #f5f0e8;
+    }
+
+    .login-sub {
+      text-align: center;
+      font-size: 13px;
+      color: #9e9b94;
+      margin-top: 4px;
+    }
+
+    .field-label {
+      font-size: 12px;
+      color: #9e9b94;
+      margin-bottom: 7px;
+      letter-spacing: 0.3px;
+    }
+
+    .field {
+      background: #131620;
+      border: 0.5px solid #2e3140;
+      border-radius: 9px;
+      padding: 11px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: border-color 0.2s;
+    }
+
+    .field:focus-within { border-color: #ff6b35; }
+
+    .field i { font-size: 16px; color: #9e9b94; }
+
+    .field input {
+      background: none;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      color: #f5f0e8;
+      flex: 1;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    .field input::placeholder { color: #4a4d5a; }
+
+    .field .eye {
+      cursor: pointer;
+      font-size: 16px;
+      color: #9e9b94;
+      transition: color 0.2s;
+    }
+
+    .field .eye:hover { color: #ff6b35; }
+
+    .forgot {
+      text-align: right;
+      font-size: 12px;
+      color: #ff6b35;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .error-msg {
+      background: rgba(226,75,74,0.1);
+      border: 0.5px solid rgba(226,75,74,0.3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #E24B4A;
+      text-align: center;
+    }
+
+    .btn-login {
+      background: #ff6b35;
+      border: none;
+      border-radius: 11px;
+      padding: 14px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      letter-spacing: 0.3px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-login i { font-size: 19px; }
+    .btn-login:hover { background: #e85c28; }
+    .btn-login:active { transform: scale(0.98); }
+
+    .secure-strip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 107, 53, 0.06);
+      border: 0.5px solid rgba(255, 107, 53, 0.2);
+      border-radius: 9px;
+      padding: 11px 15px;
+    }
+
+    .secure-strip i { font-size: 17px; color: #ff6b35; flex-shrink: 0; }
+
+    .secure-text { font-size: 12px; color: #9e9b94; }
+
+    .secure-text strong {
+      color: #f5f0e8;
+      font-weight: 600;
+      display: block;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <div class="top-bar">
+    <div class="logo">
+      <div class="logo-icon"><i class="ti ti-fingerprint"></i></div>
+      <div>
+        <div class="logo-text">TrustMatrix</div>
+        <div class="logo-sub">Identity verification</div>
+      </div>
+    </div>
+    <div class="nav-pill"><i class="ti ti-bell"></i>0 alerts</div>
+  </div>
+
+  <div class="main-grid">
+    <div class="left">
+      <div>
+        <div class="headline">Identity that<br>never stops <span>watching.</span></div>
+        <div class="sub">Continuous trust scoring across every banking session — no friction, no blind spots.</div>
+      </div>
+
+      <div class="pulse-bar">
+        <div class="pulse-label">Live identity pulse</div>
+        <div class="pulse-line">
+          <div class="pulse-dot"></div>
+          <div class="pulse-status">Session status</div>
+          <div class="pulse-badge">Secure</div>
+        </div>
+        <svg class="pulse-svg" viewBox="0 0 300 42" preserveAspectRatio="none">
+          <polyline
+            points="0,21 30,21 45,5 55,37 65,19 80,21 110,21 125,8 135,34 145,21 180,21 195,10 205,32 215,21 260,21 275,12 285,30 295,21 300,21"
+            fill="none" stroke="#ff6b35" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <i class="ti ti-device-mobile"></i>
+          <div class="metric-label">Device trust</div>
+          <div class="metric-val">95%</div>
+          <div class="metric-bar"><div class="metric-fill" style="width:95%"></div></div>
+        </div>
+        <div class="metric">
+          <i class="ti ti-sim-card"></i>
+          <div class="metric-label">SIM trust</div>
+          <div class="metric-val">92%</div>
+          <div class="metric-bar"><div class="metric-fill" style="width:92%"></div></div>
+        </div>
+        <div class="metric">
+          <i class="ti ti-brain"></i>
+          <div class="metric-label">Behavior trust</div>
+          <div class="metric-val">97%</div>
+          <div class="metric-bar"><div class="metric-fill" style="width:97%"></div></div>
+        </div>
+      </div>
+
+      <div class="quote-strip">
+        <div class="quote-text">
+          Traditional systems verify once. <em>TrustMatrix</em> verifies continuously — silently,
+          in the background, so real users feel nothing and attackers get stopped.
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="login-icon"><i class="ti ti-lock"></i></div>
+      <div>
+        <div class="login-title">Welcome back</div>
+        <div class="login-sub">Sign in to your secure session</div>
+      </div>
+
+      {% if error %}
+      <div class="error-msg"><i class="ti ti-alert-circle"></i> {{ error }}</div>
+      {% endif %}
+
+      <form method="POST" action="/">
+        <div style="margin-bottom:16px">
+          <div class="field-label">Username</div>
+          <div class="field">
+            <i class="ti ti-user"></i>
+            <input type="text" name="username" placeholder="Enter your username" required>
+          </div>
+        </div>
+
+        <div>
+          <div class="field-label">Password</div>
+          <div class="field">
+            <i class="ti ti-lock"></i>
+            <input type="password" name="password" id="pwd" placeholder="Enter your password" required>
+            <i class="ti ti-eye eye" onclick="togglePwd()"></i>
+          </div>
+          <div class="forgot">Forgot password?</div>
+        </div>
+
+        <br>
+        <button type="submit" class="btn-login"><i class="ti ti-shield-check"></i>Secure login</button>
+      </form>
+
+      <div class="secure-strip">
+        <i class="ti ti-shield-lock"></i>
+        <div class="secure-text">
+          <strong>Continuous identity verification</strong>
+          Monitoring · Analyzing · Protecting
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function togglePwd() {
+    const pwd = document.getElementById('pwd');
+    const eye = pwd.nextElementSibling;
+    if (pwd.type === 'password') {
+      pwd.type = 'text';
+      eye.classList.replace('ti-eye', 'ti-eye-off');
+    } else {
+      pwd.type = 'password';
+      eye.classList.replace('ti-eye-off', 'ti-eye');
+    }
+  }
+</script>
+
+</body>
+</html>

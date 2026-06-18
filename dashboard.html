@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustMatrix — Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0a0c12;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .dash {
+      background: #0f1117;
+      width: 100%;
+      max-width: 1100px;
+      padding: 20px 24px;
+      border-radius: 16px;
+      border: 0.5px solid #1e2130;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .logo-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: #ff6b35;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon i { font-size: 16px; color: #fff; }
+
+    .logo-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #f5f0e8;
+    }
+
+    .logo-sub {
+      font-size: 9px;
+      color: #9e9b94;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255,107,53,0.2);
+      border: 0.5px solid rgba(255,107,53,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #ff6b35;
+    }
+
+    .pill {
+      background: #1c1f2a;
+      border: 0.5px solid #2e3140;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 11px;
+      color: #9e9b94;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pill i { font-size: 12px; }
+
+    .alert-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #ff6b35;
+      animation: blink 1.4s infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    .grid-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .stat {
+      background: #1c1f2a;
+      border: 0.5px solid #2e3140;
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: #9e9b94;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .stat-label i { font-size: 12px; color: #ff6b35; }
+
+    .stat-val {
+      font-size: 22px;
+      font-weight: 600;
+      color: #f5f0e8;
+      line-height: 1;
+    }
+
+    .stat-sub { font-size: 10px; color: #9e9b94; margin-top: 5px; }
+
+    .badge-safe {
+      font-size: 9px;
+      background: rgba(29,158,117,0.15);
+      color: #1D9E75;
+      border-radius: 20px;
+      padding: 2px 8px;
+      border: 0.5px solid rgba(29,158,117,0.3);
+    }
+
+    .badge-warn {
+      font-size: 9px;
+      background: rgba(255,107,53,0.15);
+      color: #ff6b35;
+      border-radius: 20px;
+      padding: 2px 8px;
+      border: 0.5px solid rgba(255,107,53,0.3);
+    }
+
+    .badge-danger {
+      font-size: 9px;
+      background: rgba(226,75,74,0.15);
+      color: #E24B4A;
+      border-radius: 20px;
+      padding: 2px 8px;
+      border: 0.5px solid rgba(226,75,74,0.3);
+    }
+
+    .grid-mid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: #1c1f2a;
+      border: 0.5px solid #2e3140;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .card-title {
+      font-size: 10px;
+      color: #9e9b94;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .card-title i { font-size: 12px; color: #ff6b35; }
+
+    .trust-wrap {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .gauge-wrap {
+      position: relative;
+      width: 90px;
+      height: 50px;
+      flex-shrink: 0;
+    }
+
+    .gauge-wrap svg { width: 90px; height: 50px; }
+
+    .gauge-num {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      font-weight: 600;
+      color: #f5f0e8;
+    }
+
+    .trust-info { flex: 1; }
+
+    .trust-score-label {
+      font-size: 10px;
+      color: #9e9b94;
+      margin-bottom: 6px;
+    }
+
+    .trust-bars { display: flex; flex-direction: column; gap: 6px; }
+
+    .tbar-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: #9e9b94;
+    }
+
+    .tbar-row span:first-child { min-width: 70px; }
+
+    .tbar-track {
+      flex: 1;
+      height: 3px;
+      background: #2e3140;
+      border-radius: 2px;
+    }
+
+    .tbar-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: #ff6b35;
+    }
+
+    .tbar-val {
+      min-width: 26px;
+      text-align: right;
+      color: #f5f0e8;
+      font-size: 10px;
+    }
+
+    .alert-list { display: flex; flex-direction: column; gap: 7px; }
+
+    .alert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 8px 10px;
+      background: #131620;
+      border-radius: 7px;
+      border: 0.5px solid #2e3140;
+    }
+
+    .alert-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 12px;
+    }
+
+    .ai-orange { background: rgba(255,107,53,0.15); color: #ff6b35; }
+    .ai-red { background: rgba(226,75,74,0.15); color: #E24B4A; }
+    .ai-green { background: rgba(29,158,117,0.15); color: #1D9E75; }
+
+    .alert-text { flex: 1; }
+
+    .alert-title {
+      font-size: 11px;
+      color: #f5f0e8;
+      font-weight: 500;
+    }
+
+    .alert-desc {
+      font-size: 10px;
+      color: #9e9b94;
+      margin-top: 1px;
+    }
+
+    .alert-time {
+      font-size: 9px;
+      color: #4a4d5a;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .grid-bot {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .tx-list { display: flex; flex-direction: column; gap: 6px; }
+
+    .tx-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      background: #131620;
+      border-radius: 7px;
+      border: 0.5px solid #2e3140;
+    }
+
+    .tx-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .tx-info { flex: 1; }
+
+    .tx-name {
+      font-size: 11px;
+      color: #f5f0e8;
+      font-weight: 500;
+    }
+
+    .tx-meta {
+      font-size: 9px;
+      color: #9e9b94;
+      margin-top: 1px;
+    }
+
+    .tx-amt { font-size: 12px; font-weight: 500; }
+    .tx-safe { color: #1D9E75; }
+    .tx-warn { color: #ff6b35; }
+    .tx-danger { color: #E24B4A; }
+
+    .session-info { display: flex; flex-direction: column; gap: 0; }
+
+    .srow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 0.5px solid #1e2130;
+    }
+
+    .srow:last-child { border-bottom: none; }
+
+    .skey {
+      font-size: 11px;
+      color: #9e9b94;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .skey i { font-size: 12px; color: #ff6b35; }
+
+    .sval {
+      font-size: 11px;
+      color: #f5f0e8;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<div class="dash">
+
+  <div class="topbar">
+    <div class="logo">
+      <div class="logo-icon"><i class="ti ti-fingerprint"></i></div>
+      <div>
+        <div class="logo-text">TrustMatrix</div>
+        <div class="logo-sub">Dashboard</div>
+      </div>
+    </div>
+    <div class="top-right">
+      <div class="pill"><div class="alert-dot"></div>2 active alerts</div>
+      <div class="pill"><i class="ti ti-bell"></i></div>
+      <div class="avatar">RK</div>
+    </div>
+  </div>
+
+  <div class="grid-top">
+    <div class="stat">
+      <div class="stat-label"><i class="ti ti-shield-check"></i>Trust score</div>
+      <div class="stat-val">{{ data.trust_score }}<span style="font-size:12px;color:#9e9b94">/100</span></div>
+      <div class="stat-sub">
+    {% if data.trust_score >= 80 %}
+        <span class="badge-safe">Secure</span>
+
+    {% elif data.trust_score >= 50 %}
+        <span class="badge-safe">Medium Risk</span>
+
+    {% else %}
+        <span class="badge-safe">High Risk</span>
+
+    {% endif %}
+</div>
+        </div>
+      </dic>
+    </div>
+    <div class="stat">
+      <div class="stat-label"><i class="ti ti-alert-triangle"></i>Alerts today</div>
+      <div class="stat-val">2</div>
+      <div class="stat-sub"><span class="badge-warn">1 high risk</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-label"><i class="ti ti-clock"></i>Session time</div>
+      <div class="stat-val" id="timer">00:00</div>
+      <div class="stat-sub" style="color:#9e9b94;font-size:10px">Active session</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label"><i class="ti ti-device-mobile"></i>Device status</div>
+      <div class="stat-val" style="font-size:16px;margin-top:3px">Trusted</div>
+      <div class="stat-sub"><span class="badge-safe">Verified</span></div>
+    </div>
+  </div>
+
+  <div class="grid-mid">
+    <div class="card">
+      <div class="card-title"><i class="ti ti-radar"></i>Live trust breakdown</div>
+      <div class="trust-wrap">
+        <div class="gauge-wrap">
+          <svg viewBox="0 0 90 50">
+            <path d="M8,46 A37,37 0 0,1 82,46" fill="none" stroke="#2e3140" stroke-width="7" stroke-linecap="round"/>
+            <path d="M8,46 A37,37 0 0,1 82,46" fill="none" stroke="#ff6b35" stroke-width="7" stroke-linecap="round" stroke-dasharray="116" stroke-dashoffset="16"/>
+          </svg>
+          <div class="gauge-num">{{ data.trust_score }}</div>
+        </div>
+        <div class="trust-info">
+          <div class="trust-score-label">Component scores</div>
+          <div class="trust-bars">
+            <div class="tbar-row">
+              <span>Device trust</span>
+              <div class="tbar-track"><div class="tbar-fill" style="width:95%"></div></div>
+              <span class="tbar-val">95%</span>
+            </div>
+            <div class="tbar-row">
+              <span>SIM trust</span>
+              <div class="tbar-track"><div class="tbar-fill" style="width:92%"></div></div>
+              <span class="tbar-val">92%</span>
+            </div>
+            <div class="tbar-row">
+              <span>Behavior</span>
+              <div class="tbar-track"><div class="tbar-fill" style="width:97%"></div></div>
+              <span class="tbar-val">97%</span>
+            </div>
+            <div class="tbar-row">
+              <span>Location</span>
+              <div class="tbar-track"><div class="tbar-fill" style="width:88%"></div></div>
+              <span class="tbar-val">88%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-bell-ringing"></i>Recent alerts</div>
+      <div class="alert-list">
+        <div class="alert-item">
+          <div class="alert-icon ai-red"><i class="ti ti-sim-card"></i></div>
+          <div class="alert-text">
+            <div class="alert-title">SIM change detected</div>
+            <div class="alert-desc">New SIM registered on account</div>
+          </div>
+          <div class="alert-time">2m ago</div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-icon ai-orange"><i class="ti ti-device-mobile"></i></div>
+          <div class="alert-text">
+            <div class="alert-title">New device login</div>
+            <div class="alert-desc">Unrecognized device · Mumbai</div>
+          </div>
+          <div class="alert-time">14m ago</div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-icon ai-green"><i class="ti ti-check"></i></div>
+          <div class="alert-text">
+            <div class="alert-title">OTP verified</div>
+            <div class="alert-desc">Login confirmed successfully</div>
+          </div>
+          <div class="alert-time">18m ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-bot">
+    <div class="card">
+      <div class="card-title"><i class="ti ti-credit-card"></i>Recent transactions</div>
+      <div class="tx-list">
+        <div class="tx-item">
+          <div class="tx-icon ai-green"><i class="ti ti-check"></i></div>
+          <div class="tx-info">
+            <div class="tx-name">HDFC Bank Transfer</div>
+            <div class="tx-meta">Today · 10:32 AM · Trusted device</div>
+          </div>
+          <div class="tx-amt tx-safe">₹4,500</div>
+        </div>
+        <div class="tx-item">
+          <div class="tx-icon ai-orange"><i class="ti ti-alert-triangle"></i></div>
+          <div class="tx-info">
+            <div class="tx-name">UPI — Unknown payee</div>
+            <div class="tx-meta">Today · 10:41 AM · New device</div>
+          </div>
+          <div class="tx-amt tx-warn">₹12,000</div>
+        </div>
+        <div class="tx-item">
+          <div class="tx-icon ai-red"><i class="ti ti-x"></i></div>
+          <div class="tx-info">
+            <div class="tx-name">Net Banking — Blocked</div>
+            <div class="tx-meta">Today · 10:44 AM · SIM anomaly</div>
+          </div>
+          <div class="tx-amt tx-danger">₹50,000</div>
+        </div>
+        <div class="tx-item">
+          <div class="tx-icon ai-green"><i class="ti ti-check"></i></div>
+          <div class="tx-info">
+            <div class="tx-name">Electricity Bill</div>
+            <div class="tx-meta">Yesterday · 6:10 PM · Trusted</div>
+          </div>
+          <div class="tx-amt tx-safe">₹1,240</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-user-check"></i>Session info</div>
+      <div class="session-info">
+        <div class="srow">
+          <div class="skey"><i class="ti ti-user"></i>User</div>
+          <div class="sval">Raj Kumar</div>
+        </div>
+        <div class="srow">
+          <div class="skey"><i class="ti ti-device-laptop"></i>Device</div>
+          <div class="sval">iPhone 14 · iOS 17</div>
+        </div>
+        <div class="srow">
+          <div class="skey"><i class="ti ti-map-pin"></i>Location</div>
+          <div class="sval">Ahmedabad, GJ</div>
+        </div>
+        <div class="srow">
+          <div class="skey"><i class="ti ti-sim-card"></i>SIM status</div>
+          <div class="sval"><span class="badge-warn">Changed recently</span></div>
+        </div>
+        <div class="srow">
+          <div class="skey"><i class="ti ti-shield"></i>Risk level</div>
+          <div class="sval"><span class="badge-warn">Medium</span></div>
+        </div>
+        <div class="srow">
+          <div class="skey"><i class="ti ti-lock"></i>Auth method</div>
+          <div class="sval">Biometric + OTP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let secs = 0;
+  setInterval(() => {
+    secs++;
+    const m = String(Math.floor(secs / 60)).padStart(2, '0');
+    const s = String(secs % 60).padStart(2, '0');
+    document.getElementById('timer').textContent = m + ':' + s;
+  }, 1000);
+</script>
+
+</body>
+</html>
